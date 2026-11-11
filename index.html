@@ -4,7 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>323 Pitching Performance</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="description" content="Remote, individualized, faith-based development for high school pitchers and their parents. The Complete Pitching Program and Mental Game Mentorship. Colossians 3:23.">
 <meta name="theme-color" content="#000000">
 <meta property="og:title" content="323 Pitching Performance">
@@ -82,8 +81,7 @@ p { margin: 0; }
 .cta-group--center { justify-items: center; margin-top: 0; }
 .cta-note { font-size: 0.88rem; color: var(--steel); max-width: 34rem; }
 .cta-note b { color: var(--white); font-weight: 600; }
-.pending { color: var(--white); }
-.pending a, .community-note a { display: inline-block; padding-block: 6px; }
+.community-note a { display: inline-block; padding-block: 6px; }
 .community-note { margin-top: var(--space); }
 
 /* Nav */
@@ -580,7 +578,6 @@ p { margin: 0; }
         <a class="btn" href="#apply" data-apply>Apply Now</a>
         <p class="cta-note">Five-minute application. Free call after you submit.</p>
         <p class="cta-note community-note" data-community-note hidden>Not ready to apply? <a href="#" data-community target="_blank" rel="noopener">Join the free 323 Community on Skool</a></p>
-        <p class="cta-note pending" id="apply-pending">Applications open soon. Message <a href="https://www.instagram.com/3.23performance/" data-instagram target="_blank" rel="noopener">@3.23performance</a> on Instagram to hold your spot.</p>
       </div>
     </div>
   </section>
@@ -590,7 +587,7 @@ p { margin: 0; }
 <footer class="site-footer">
   <div class="wrap">
     <div>
-      <p class="f-label">[ ABOUT ]</p>
+      <p class="f-label">[ PROGRAMS ]</p>
       <ul class="f-links">
         <li><a href="#complete">Complete Pitching Program</a></li>
         <li><a href="#mental-game">Mental Game Mentorship</a></li>
@@ -645,8 +642,7 @@ const CONFIG = {
   const $$ = (s, el = document) => Array.from(el.querySelectorAll(s));
 
   // Application links. Any utm_ tags on this page (for example from the
-  // Instagram bio link) carry through. Until the application is live, the
-  // buttons go to the closing section, which says how to reach us.
+  // Instagram bio link) carry through.
   const params = new URLSearchParams(location.search);
   if (CONFIG.applicationUrl) {
     $$("a[data-apply]").forEach(a => {
@@ -668,7 +664,6 @@ const CONFIG = {
         });
       });
     });
-    $("#apply-pending").hidden = true;
   }
 
   $$("[data-instagram]").forEach(a => a.href = "https://www.instagram.com/" + CONFIG.instagramHandle + "/");
