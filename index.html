@@ -353,7 +353,7 @@ p { margin: 0; }
     <span id="programming" aria-hidden="true"></span><span id="program-remote" aria-hidden="true"></span><span id="program-inperson" aria-hidden="true"></span>
     <div class="wrap program-grid">
       <div class="program-intro">
-        <p class="badge">Founding spots open</p>
+        <p class="badge" data-founding-badge>Founding spots open</p>
         <h2 class="section-title" id="complete-title">Complete Pitching <span class="key">Program</span></h2>
         <p class="program-tag">One coach, one plan, every part of the athlete.</p>
         <p>Most high school pitchers train in pieces: a throwing routine from one place, a lift from another, and nothing for the mental game. That's how arms get overworked and progress stalls. This program puts it all under one plan, adjusted every week around your team schedule.</p>
@@ -386,7 +386,7 @@ p { margin: 0; }
         </div>
         <div class="commitment">
           <p class="label">Commitment</p>
-          <p><b>6-month minimum.</b> Real movement change takes a full training cycle. Founding athletes keep their founding rate as long as they stay enrolled.</p>
+          <p><b>6-month minimum.</b> Real movement change takes a full training cycle.<span data-founding-terms> Founding athletes keep their founding rate as long as they stay enrolled.</span></p>
         </div>
         <a class="btn" href="#apply" data-apply data-program="Complete Pitching Program">Apply for the Complete Pitching Program</a>
       </div>
@@ -398,7 +398,7 @@ p { margin: 0; }
     <span id="program-mental" aria-hidden="true"></span>
     <div class="wrap program-grid">
       <div class="program-intro">
-        <p class="badge">Founding spots open</p>
+        <p class="badge" data-founding-badge>Founding spots open</p>
         <h2 class="section-title" id="mental-title">Mental Game <span class="key">Mentorship</span></h2>
         <p class="program-tag">For the pitcher who has the stuff but loses it between the ears.</p>
         <p>Great in the bullpen, gone by the third inning. That isn't a talent problem. It's interference: fear of failure, comparison, overthinking, and playing for approval.</p>
@@ -431,7 +431,7 @@ p { margin: 0; }
         </div>
         <div class="commitment">
           <p class="label">Commitment</p>
-          <p><b>3-month minimum.</b> Enough time to build the habits and use them in real games. Founding athletes keep their founding rate as long as they stay enrolled.</p>
+          <p><b>3-month minimum.</b> Enough time to build the habits and use them in real games.<span data-founding-terms> Founding athletes keep their founding rate as long as they stay enrolled.</span></p>
         </div>
         <a class="btn" href="#apply" data-apply data-program="Mental Game Mentorship">Apply for Mental Game Mentorship</a>
       </div>
@@ -663,6 +663,8 @@ const CONFIG = {
   tallyFormId: "je6ylY",
   // Instagram handle without the @
   instagramHandle: "3.23performance",
+  // Founding spots still open. Update when an athlete enrolls; 0 hides every founding mention.
+  foundingSpotsLeft: 5,
   // Coach's Instagram handle without the @ (the "Your coach" section links here)
   coachInstagram: "dc.throws",
   // Free 323 Community on Skool. Leave empty to hide the footer block.
@@ -700,6 +702,15 @@ const CONFIG = {
 
   $$("[data-instagram]").forEach(a => a.href = "https://www.instagram.com/" + CONFIG.instagramHandle + "/");
   $$("[data-instagram-handle]").forEach(el => el.textContent = "@" + CONFIG.instagramHandle);
+  // Founding spots: one number in CONFIG drives the hero line, both badges and the terms
+  const spots = Number(CONFIG.foundingSpotsLeft) || 0;
+  if (spots > 0) {
+    const word = spots === 1 ? "spot" : "spots";
+    $$("[data-founding-note]").forEach(el => el.textContent = `${spots} founding ${word} left.`);
+    $$("[data-founding-badge]").forEach(el => el.textContent = `${spots} founding ${word} left`);
+  } else {
+    $$("[data-founding-note], [data-founding-badge], [data-founding-terms]").forEach(el => el.hidden = true);
+  }
   $$("[data-coach-instagram]").forEach(a => a.href = "https://www.instagram.com/" + CONFIG.coachInstagram + "/");
   $$("[data-coach-instagram-handle]").forEach(el => el.textContent = CONFIG.coachInstagram);
   if (CONFIG.communityUrl) {
