@@ -627,8 +627,8 @@ const CONFIG = {
   // The Calendly discovery call link belongs at the END of the application, after submit,
   // not on this page: https://calendly.com/323mperformance/3-23-performance-discovery-call
   applicationUrl: "https://tally.so/r/je6ylY",
-  // Tally form ID. Apply buttons open the application as a popup on this page;
-  // if the popup can't load, they open applicationUrl instead.
+  // Tally form ID. On desktop, Apply buttons open the application as a popup on this page.
+  // On phones, in Instagram's in-app browser, or if the popup can't load, they open applicationUrl.
   tallyFormId: "je6ylY",
   // Instagram handle without the @
   instagramHandle: "3.23performance",
@@ -657,11 +657,13 @@ const CONFIG = {
       a.href = url.toString();
       a.addEventListener("click", e => {
         if (!CONFIG.tallyFormId || !window.Tally) return;   // fall back to the link
+        // Phones and Instagram's in-app browser get the plain link: popups are fragile there
+        const inApp = /Instagram|FBAN|FBAV/.test(navigator.userAgent);
+        if (inApp || window.matchMedia("(max-width: 899px)").matches) return;
         e.preventDefault();
         const hiddenFields = Object.fromEntries(url.searchParams);
         window.Tally.openPopup(CONFIG.tallyFormId, {
           layout: "modal",
-          emoji: { text: "\u{1F44B}", animation: "wave" },
           hiddenFields
         });
       });
